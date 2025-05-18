@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Image-to-3D</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Générateur Image-to-3D</h1>
+    </header>
+    
+    <main>
+        <form id="upload-form">
+            <label for="image">Téléverser une image :</label>
+            <input type="file" id="image" accept="image/*">
+            
+            <button type="submit">Générer le modèle 3D</button>
+        </form>
+
+        <div id="preview">
+            <h2>Prévisualisation :</h2>
+            <img id="image-preview" src="" alt="Image sélectionnée">
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
