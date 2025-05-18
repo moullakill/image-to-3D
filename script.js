@@ -1,15 +1,32 @@
-document.getElementById('image').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('image-preview').src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-document.getElementById('upload-form').addEventListener('submit', function(event) {
+document.getElementById('upload-form').addEventListener('submit', async function(event) {
     event.preventDefault();
-    alert("Fonctionnalité à implémenter : Envoyer l'image et le prompt à l'IA !");
+    
+    const file = document.getElementById('image').files[0];
+    if (!file) {
+        alert("Veuillez téléverser une image !");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const response = await fetch("https://api.huggingface.co/models/stabilityai/stable-fast-3d", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer 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",
+            },
+            body: formData
+        });
+
+        if (!response.ok) throw new Error("Erreur API");
+
+        const result = await response.json();
+        alert("Modèle 3D généré !");
+        document.getElementById("preview").innerHTML = `<iframe src="${result.output}" width="500" height="500"></iframe>`;
+
+    } catch (error) {
+        console.error("Erreur :", error);
+        alert("Échec de génération, réessayez !");
+    }
 });
